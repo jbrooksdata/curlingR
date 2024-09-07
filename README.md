@@ -14,14 +14,14 @@ devtools::install_github("jbrooksdata/sweepR")
 
 ## Use Examples
 
-The example code and plot below shows how the current top Canadian women’s team ratings have varied in the last two seasons, forecasting which captain may succeed the recently retired Jennifer Jones in representing Canada at the 2026 Olympics.
+The example code and plot below show how the current top Canadian women’s team ratings have varied in the last two seasons, forecasting which captain may succeed the recently retired Jennifer Jones in representing Canada at the 2026 Olympics. The results show Rachel Homan's squad has been increasingly dominant in the last year of play.
 
 ```
 library(curlingR)
 library(tidyverse)
 library(ggplot2)
 
-# current Canadian top 5 women's teams
+# current Canadian top 5 women's team IDs
 Top5 <- load_rankings_women() %>%
   filter(Country == 'Canada',
          # max date of 2024 season
@@ -39,8 +39,8 @@ Top5History <- load_rankings_women() %>%
 Top5History %>%
   ggplot(aes(x = as.Date(Date), y = Rating, group = LastName, color = LastName)) +
   geom_line(linewidth = 1) +
-  ggtitle("Top 5 Canadian Team Rating Comparison") +
-  scale_x_date(date_breaks = "3 months", date_labels = "%b %d") +
+  ggtitle("Top 5 Canadian Team Rating Comparison, Last 2 Seasons") +
+  scale_x_date(date_breaks = "3 months", date_labels = "%b %y") +
   labs(x = NULL , color = "Team") +
   theme_bw()
 ```
