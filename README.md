@@ -4,3 +4,10 @@
 
 `curlingR` utilizes API access to [DoubleTakeout](https://doubletakeout.com/), a world curling data website and blog, to archive men’s and women’s world rankings, game logs, shot logs, and other event info, primarily for events from 2018 through present day, with some game and shot log data dating back to 2001 for major events like the Olympics and World Championships.
 
+## Installation
+
+`sweepR` can be installed using:
+
+```
+devtools::install_github("jbrooksdata/sweepR")
+```
