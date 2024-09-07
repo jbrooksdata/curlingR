@@ -1,4 +1,4 @@
-# CurlingR: Accessible world curling data
+# curlingR: Accessible world curling data
 
 `curlingR` seeks to preserve world curling data and maintain its usability for researchers and other enthusiasts in the sports data space. As media coverage of this sport can be limited in many locations, this package will make it much easier for coaches, players, and other enthusiasts to analyze matches and deepen their understanding of the sport.
 
