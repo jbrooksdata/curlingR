@@ -14,6 +14,8 @@ devtools::install_github("jbrooksdata/sweepR")
 
 ## Use Examples
 
+### Canada's succession plan
+
 The example code and plot below show how the current top Canadian women’s team ratings have varied in the last two seasons, forecasting which captain may succeed the recently retired Jennifer Jones in representing Canada at the 2026 Olympics. The results show Rachel Homan's squad has been increasingly dominant in the last year of play.
 
 ```
@@ -46,6 +48,50 @@ Top5History %>%
 ```
 <div align="center">
   <img src="https://github.com/jbrooksdata/curlingR-data/blob/main/viz/Canada%20Top%205.png?raw=true" width="750"/>
+</div>
+
+### Sweden's continued dominance
+
+Examining how the 2022 Olympic gold medalists, Sweden’s men’s team, fared in the most recent edition of the World Championships, we can call `load_events_stats()` to return overall player stats for each event. Looking into a player shot quality over expectation calculation for the event would reveal that all four primary Swedish players had elite performances, with three finishing the tournament in the top 10.
+
+```
+library(curlingR)
+library(tidyverse)
+library(gt)
+
+data <- load_events_stats(251)
+
+top10 <- data %>%
+  filter(n > 100) %>%
+  mutate(avgOverExp = round(avg_pts - exp_pts,2)) %>%
+  arrange(-avgOverExp) %>%
+  head(10) %>%
+  select(athlete, team, throws = n, avgOverExp)
+
+top10 %>%
+  gt()%>%
+  data_color(
+    columns = c(avgOverExp),
+    colors = scales::col_numeric(
+      palette = c("#E54343","#F5F5F5","#4395E5"),
+      domain = c(0,0.4))) %>%
+  cols_align(
+    align = "center",
+    columns = c(athlete:avgOverExp)
+  )%>%
+  tab_style(
+    style = cell_text(weight = "bold"),
+    locations = cells_body(
+      columns = vars(athlete, team),
+      rows = team == 'SWE (Edin)'
+    )
+  ) %>%
+  tab_header(
+    title = md("**Average Throw Score Over Expectation**"),
+    subtitle = ("Top 10 Players at the 2024 World Championships"))
+```
+<div align="center">
+  <img src="https://github.com/jbrooksdata/curlingR-data/blob/main/viz/Sweden%20at%20the%20Mens%20WC.png?raw=true" width="500"/>
 </div>
 
 ## Other Notes
