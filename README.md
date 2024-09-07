@@ -94,6 +94,35 @@ top10 %>%
   <img src="https://github.com/jbrooksdata/curlingR-data/blob/main/viz/Sweden%20at%20the%20Mens%20WC.png?raw=true" width="500"/>
 </div>
 
+### A strong opener
+
+`load_events_games()` shows that Niklas Edin’s Swedish squad won the World Championships gold medal game 6-5 over Canada, which may not be a surprising result when looking through the list to see that they opened their tournament play with an 8-1 victory over the Netherlands. Using shot-level data with `load_game_data()` can help determine if a team was simply outclassed or if there was a major momentum shift in a particular game. Looking at Sweden’s 8-1 victory, it would appear to be the former.
+
+```
+library(curlingR)
+library(tidyverse)
+library(ggplot2)
+
+data <- load_games_data(7352)
+
+runningPoints <- data %>%
+  filter(!is.na(points)) %>%
+  group_by(team) %>%
+  arrange(team) %>%
+  mutate(attempt_number = row_number()) %>% 
+  mutate(running_total = cumsum(points))
+
+runningPoints %>%
+  ggplot(aes(x = attempt_number, y = running_total, group = team, color = team)) +
+  geom_line(linewidth = 1) +
+  ggtitle("Running Throw Quality Score in Sweden's 8-1 Victory") +
+  labs(x = "Throw Number",y = "Running Quality Score", color = "Team") +
+  theme_bw()
+```
+<div align="center">
+  <img src="https://github.com/jbrooksdata/curlingR-data/blob/main/viz/Swedens%20Dominant%20Opener.png?raw=true" width="850"/>
+</div>
+
 ## Other Notes
 
 - Browse [the curlingR data repo](https://github.com/jbrooksdata/curlingR-data) for raw data.
