@@ -11,3 +11,7 @@
 ```
 devtools::install_github("jbrooksdata/sweepR")
 ```
+
+## Other Notes
+
+- Browse [the curlingR data repo](https://github.com/jbrooksdata/curlingR-data) for raw data.
